@@ -44,10 +44,6 @@ function App() {
   return (
     <>
     <RouterProvider router={router} />
-
-     <div>
-     <h1 className='text-3xl text-red-900 bg-gray-400 text-center'>TechGyanKosh</h1>
-     </div>
     </>
   )
 }

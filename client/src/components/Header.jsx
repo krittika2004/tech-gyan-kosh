@@ -33,6 +33,11 @@ const Header = () => {
                         SignIn
                     </Button>
                 </Link>
+                <Link to="/sign-up">
+                    <Button className='bg-gradient-to-r from-cyan-400 to-sky-500 px-2 lg:rounded self-center' color="grey" pill>
+                        SignUp
+                    </Button>
+                </Link>
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>

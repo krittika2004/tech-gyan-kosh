@@ -22,10 +22,10 @@ const Header = () => {
                 />
             </form>
             <Button>
-                <AiOutlineSearch className='w-12 h-12 lg:hidden' color='grey' pill />
+                <AiOutlineSearch className='w-12 h-12 lg:hidden' color='grey' pill="true" />
             </Button>
             <div className='ml-48 flex gap-2  md:order-2'>
-                <Button className='w-10 h-12 p-2 hidden sm:inline ' color="grey" pill>
+                <Button className='w-10 h-12 p-2 hidden sm:inline ' color="grey" pill="true">
                     <FaMoon />
                 </Button>
                 <Link to="/sign-in">
@@ -41,14 +41,14 @@ const Header = () => {
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
-                <Navbar.Link active={path === "/"}>
-                    <Link to='/'>Home</Link>
+                <Navbar.Link href="/" active={path === "/"}>
+                    Home
                 </Navbar.Link>
-                <Navbar.Link active={path === "/about"}>
-                    <Link to='/about'>About</Link>
+                <Navbar.Link href="/about" active={path === "/about"}>
+                    About
                 </Navbar.Link>
-                {/* <Navbar.Link active={path === "/projects"}>
-                    <Link to='/projects'>Projects</Link>
+                {/* <Navbar.Link href="/projects" active={path === "/projects"}>
+                    Projects
                 </Navbar.Link> */}
             </Navbar.Collapse>
         </Navbar>

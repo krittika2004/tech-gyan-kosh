@@ -1,9 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';
 import cors from 'cors';
+import dotenv from 'dotenv';
 dotenv.config();
+
 const app = express();
 const port = 3000;
 

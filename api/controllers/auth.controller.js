@@ -47,14 +47,16 @@ export const signin = async (req,res,next)=>{
     }
     //now email add password matched - save this encrypted email password to cookie of the browser-- cookie assigned based on secret key 
     //secret key is unique to u
-    const sec = "techGyaan";
+    const jwtSecret = "techGyaan";
+
     //if successful don't want to send password with valid user
     const {password: pass, ...userWithoutPassword} = validUser._doc;
     const token = jwt.sign(
-      {id: validUser._id}, sec);
+      {id: validUser._id}, jwtSecret);
       res.status(200).cookie('access_token', token, {
       httpOnly: true
       }).json(userWithoutPassword);
+      console.log("jwt secret code: ",jwtSecret);
 
   }catch(err){
     next(err);

@@ -1,6 +1,9 @@
-import { Button, Label, TextInput } from "flowbite-react";
+import { Button, Label, TextInput, Alert } from "flowbite-react";
 import React, { useState } from "react";
-import { Link ,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector} from "react-redux";
+import { signInStart,signInSuccess,signInFailure } from "../redux/user/userSlice";
+
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -10,9 +13,15 @@ const SignIn = () => {
     console.log(formData);
   };
 
+  const dispatch = useDispatch();
+  const {loading, error: errorMessage} = useSelector(state=>state.user);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!formData.email || !formData.password){
+      return dispatch(signInFailure('Please fill out all the fields'))
+    }
     try {
+      dispatch(signInStart());
       const res = await fetch("http://localhost:3000/api/auth/signin", {
         // Use full URL for testing
         method: "POST",
@@ -21,20 +30,25 @@ const SignIn = () => {
         },
         body: JSON.stringify(formData),
       });
+      
+      const data = await res.json();
+      if(data.success === false){
+        dispatch(signInFailure(data.message));
+      }
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       //if sign in successful
-      if(res.ok){
+      if (res.ok) {
+        dispatch(signInSuccess(data));
         navigate('/');
       }
-      const data = await res.json();
       console.log(data);
     } catch (err) {
-      console.error("Error:", err);
+      dispatch(signInFailure(error.message));
     }
   };
-  
+
   return (
     <div className="min-h-screen mt-20">
       <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-10">
@@ -49,7 +63,7 @@ const SignIn = () => {
         {/* right */}
         <div>
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            
+
             <div>
               <Label value="Your Email" />
               <TextInput
@@ -83,12 +97,15 @@ const SignIn = () => {
               </Link>
             </span>
           </div>
-          {/* if any error display it under the form 
+        <div>
+       
           {errorMessage && (
-            <Alert className='mt-5' color='failure'>
-              {errorMessage}
+            <Alert className='mt-5 bg-red-200' color='failure'>
+               TechGyaan Says: {errorMessage}
             </Alert>
-          )} */}
+          )}
+        </div>
+          
         </div>
       </div>
     </div>

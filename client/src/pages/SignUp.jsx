@@ -1,7 +1,7 @@
 import { Button, Label, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link ,useNavigate } from "react-router-dom";
-import User from "../../../api/models/user.model";
+
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
